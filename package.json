@@ -1,0 +1,23 @@
+{
+  "name": "book_app",
+  "version": "1.0.0",
+  "description": "Number and name of feature: Server.js SET UP",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CeylinBrooks/book_app.git"
+  },
+  "author": "Ceylin Brooks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CeylinBrooks/book_app/issues"
+  },
+  "homepage": "https://github.com/CeylinBrooks/book_app#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
