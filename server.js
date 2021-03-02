@@ -10,7 +10,7 @@ const booksArr = [
   {name: 'Dr.Suess', date: }
 ];
 
-app.use(express.static('.public'));
+app.use(express.static('./public');
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 
@@ -21,8 +21,9 @@ app.get('/hello', (req, res) => {
 
 app.post('/create', (req, res) => {
   console.log(req.body);
-
-})
+  booksArr.push(req.body);
+  res.redirect('/hello');
+});
 
 app.use(express.static(__dirname + '/public'));
 
