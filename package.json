@@ -19,6 +19,7 @@
   "homepage": "https://github.com/CeylinBrooks/book_app#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "pg": "^8.5.1",
     "superagent": "^6.1.0"
   }
 }
