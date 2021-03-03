@@ -18,16 +18,43 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 
+//Index.ejs route
+app.get('/', (req, res) => {
+  res.render('./pages/index.ejs')
+}
+
 //Routes
 app.get('pages/searches/new.ejs', handleNew, (req,res) => {
   res.render('./pages/searches/new.ejs');
 });
 
-//TODO: render to home route
-app.get('/views/pages/index.ejs')
+app.get('/./pages/searches/show.ejs', insertBookValues);
+
+function insertBookValues(req, res) {
+  const bookId = req.params.book_id;
+  const sqlString = 'SELECT * FROM books WHERE id=$1';
+  const sqlArray = [bookId];
+  client.query(sqlString, sqlArray)
+    .then(result => {
+      const skoob = result.rows[0];
+      const bookObject = {skoob};
+      res.render('./pages/searches/new.ejs', bookObject)
+    })
+  
+}
+
+
 
 app.post('/searches', (req, res) => {
   let booksUrl = '';
+  switch (req.body.selectionType) {
+    case '1':
+      booksUrl = 'title';
+      break;
+    case '2':
+      booksUrl = 'author';
+      break;
+  }
   let url = `https://www.googleapis.com/books/v1/volumes?q=${booksUrl}:${req.body.query}`;
   superagent.get(url)
   .then(data => {
@@ -42,18 +69,28 @@ app.post('/searches', (req, res) => {
   
   // booksArr.push(req.body);
 });
-
+ 
+function grabTheBook(bookSummary) {
+  return bookSummary.map(book => {
+    return new GetTheBook(
+      book.volumeInfo.title,
+      book.volumeInfo.authors,
+      book.volumeInfo.description,
+      book.volumeInfo.imageLinks)
+  }
+  );
+}
 //TODO: Need to change to working API, once API key is gotten
-//TODO: superagent.get(url)
 
 
-function grabTheBook (bookDescription) {
-  const booksArray = [];
-  this.title = bookDescription.title || 'book title';
-  this.author = 'author';
+
+function GetTheBook (title, author, image, description) {
+  // const booksArray = [];
+  this.title = title || 'book title',
+  this.author = author,
   // If this condition is true use the condition after the ? if it is not use the condtion after the :
-  this.image = ( bookDescription.image != null ) ? bookDescription.image : 'https://i.imgur.com/J5LVHEL.jpg';
-  this.description = 'description';
+  this.image = (image != null ) ? image : 'https://i.imgur.com/J5LVHEL.jpg',
+  this.description = description,
 }
 
 
