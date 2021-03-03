@@ -6,11 +6,12 @@
   <title>BOOK APP</title>
 </head>
 <body>
-  <form action="pages/searches/new.ejs">
+  <form action="pages/searches/new.ejs" method ="POST">
     <fieldset>
-      <legend>Book?</legend>
-      <input type="text">
-      <input type="text">
+      <legend>Book Recommendations?</legend>
+      <input name="Author" type="text">
+      <input name="Title" type="text">
+      <input type="Search">
     </fieldset>
   </form>
  

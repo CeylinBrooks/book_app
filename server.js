@@ -28,6 +28,14 @@ app.get('/views/pages/index.ejs')
 
 app.post('/searches', (req, res) => {
   let booksUrl = '';
+  switch (req.body.selectionType) {
+    case '1':
+      booksUrl = 'title';
+      break;
+    case '2':
+      booksUrl = 'author';
+      break;
+  }
   let url = `https://www.googleapis.com/books/v1/volumes?q=${booksUrl}:${req.body.query}`;
   superagent.get(url)
   .then(data => {
@@ -42,9 +50,19 @@ app.post('/searches', (req, res) => {
   
   // booksArr.push(req.body);
 });
-
+ 
+function grabTheBook(bookInfo) {
+  return bookInfo.map(book => {
+    return new Book(
+      book.volumeInfo.title,
+      book.volumeInfo.authors,
+      book.volumeInfo.description,
+      book.volumeInfo.imageLinks)
+  }
+  );
+}
 //TODO: Need to change to working API, once API key is gotten
-//TODO: superagent.get(url)
+
 
 
 function grabTheBook (bookDescription) {
