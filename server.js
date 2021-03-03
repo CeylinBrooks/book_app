@@ -51,9 +51,9 @@ app.post('/searches', (req, res) => {
   // booksArr.push(req.body);
 });
  
-function grabTheBook(bookInfo) {
-  return bookInfo.map(book => {
-    return new Book(
+function grabTheBook(bookSummary) {
+  return bookSummary.map(book => {
+    return new GetTheBook(
       book.volumeInfo.title,
       book.volumeInfo.authors,
       book.volumeInfo.description,
@@ -65,13 +65,13 @@ function grabTheBook(bookInfo) {
 
 
 
-function grabTheBook (bookDescription) {
-  const booksArray = [];
-  this.title = bookDescription.title || 'book title';
-  this.author = 'author';
+function GetTheBook (title, author, image, description) {
+  // const booksArray = [];
+  this.title = title || 'book title',
+  this.author = author,
   // If this condition is true use the condition after the ? if it is not use the condtion after the :
-  this.image = ( bookDescription.image != null ) ? bookDescription.image : 'https://i.imgur.com/J5LVHEL.jpg';
-  this.description = 'description';
+  this.image = (image != null ) ? image : 'https://i.imgur.com/J5LVHEL.jpg',
+  this.description = description,
 }
 
 
